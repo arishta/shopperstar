@@ -1,21 +1,21 @@
 from django.shortcuts import render
 from django.http import JsonResponse
+from django.http import HttpResponse
 from .models import UserInfo
 from .serializers import UserInfoSerializer
 from rest_framework.views import APIView
 from django.db.models import Q
 from rest_framework.authtoken.models import Token
 from rest_framework.permissions import IsAuthenticated  
-from django.contrib.auth import authenticate
+from rest_framework.authentication import TokenAuthentication
 from uuid import uuid4
 
 class login(APIView):
-	permission_classes = (IsAuthenticated,) 
 	def get(self,request):
 		username=request.GET.get('username')
 		password=request.GET.get('password')
 		if username and password is not None:
-			queryset=UserInfo.objects.filter(Q(username=username)&Q(password=password))
+			queryset=UserInfo.objects.filter(username=username).filter(password=password)
 			if queryset:
 				rand_token = uuid4()
 				UserInfo.objects.filter(username=username).update(token=rand_token)

@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'login_signup',
     'profile_info',
     'rest_framework.authtoken',
+    'category',
 ]
 
 MIDDLEWARE = [
@@ -89,11 +90,10 @@ DATABASES = {
 }
 
 
-REST_FRAMWORK={
-    'DEFAULT_AUTHENTICATION_CLASSES':('rest_framework,authentication.TokenAuthentication',),
-    'DEFAULT_PERMISSION_CLASSES':('rest_framework.permissions.IsAuthenticated',)
 
-}
+
+
+
 
 
 # Password validation
