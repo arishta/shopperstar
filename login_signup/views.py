@@ -18,7 +18,7 @@ class login(APIView):
 			queryset=UserInfo.objects.filter(username=username).filter(password=password)
 			if queryset:
 				rand_token = uuid4()
-				UserInfo.objects.filter(username=username).update(token=rand_token)
+				UserInfo.objects.filter(username=username).update(authorization_token=rand_token)
 				return JsonResponse({"status":"true","token":rand_token})
 			else:
 				return JsonResponse({"status":"false"})	
