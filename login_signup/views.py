@@ -15,7 +15,7 @@ class login(APIView):
 		username=request.GET.get('username')
 		password=request.GET.get('password')
 		if username and password is not None:
-			queryset=UserInfo.objects.filter(username=username).filter(password=password)
+			queryset=UserInfo.objects.filter(username=username,password=password)
 			if queryset:
 				rand_token = uuid4()
 				UserInfo.objects.filter(username=username).update(authorization_token=rand_token)
