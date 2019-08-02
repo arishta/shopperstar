@@ -40,8 +40,9 @@ INSTALLED_APPS = [
     'rest_framework',
     'login_signup',
     'profile_info',
-    'rest_framework.authtoken',
     'category',
+    'cart',
+    'rest_framework.authtoken',
 ]
 
 MIDDLEWARE = [
@@ -53,6 +54,8 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+
 
 ROOT_URLCONF = 'shopperstar.urls'
 
@@ -72,6 +75,16 @@ TEMPLATES = [
     },
 ]
 
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+       
+        'rest_framework.authentication.TokenAuthentication',
+    ),
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    )
+}
+
 WSGI_APPLICATION = 'shopperstar.wsgi.application'
 
 
@@ -88,11 +101,6 @@ DATABASES = {
         'PORT' : 3306,
     }
 }
-
-
-
-
-
 
 
 

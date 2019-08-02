@@ -3,8 +3,8 @@ from .models import Category,Subcategory,Products
 from .serializers import CategorySerializer,SubcategorySerializer,ProductsSerializer
 from rest_framework.views import APIView
 from django.http import JsonResponse 
-from login_signup.token_verification import TokenVerify
 from django.db.models import Q
+import json
 
 
 
@@ -34,8 +34,8 @@ class CategoryView(APIView):
 			serializer=CategorySerializer(Category.objects.all(),many=True)
 			return JsonResponse({"categories":serializer.data})
 
-
 class SubcategoryView(APIView):
+	
 	def post(self,request):
 		if request.method=='POST':
 			subcategory_name=request.query_params['subcategory_name']
@@ -56,7 +56,7 @@ class SubcategoryView(APIView):
 				queryset.delete()
 				return JsonResponse({"message":"subcategory successfully deleted"})
 			else:
-				return JsonResponse({"message":"caetegoy does not exist"})	
+				return JsonResponse({"message":"caetegoy does not exist"})			
 	def get(self,request):
 		if request.method=='GET':	
 			serializer=SubcategorySerializer(Subcategory.objects.all(),many=True)
@@ -116,7 +116,10 @@ class SearchView(APIView):
 				q1=q1.order_by('views')
 				serializer=ProductsSerializer(q1,many=True)
 				return JsonResponse({"response":serializer.data})
-				
+
+
+
+					
 
 
 			

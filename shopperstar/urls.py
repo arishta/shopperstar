@@ -15,6 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path,include
+from rest_framework.authtoken import views
 
 
 urlpatterns = [
@@ -22,4 +23,6 @@ urlpatterns = [
     path('login_signup/',include('login_signup.urls')),
     path('profile',include('profile_info.urls')),
     path('',include('category.urls')),
+    path('cart/',include('cart.urls')),
+    path('api_token_auth',views.obtain_auth_token,name='auth-token'),
 ]
