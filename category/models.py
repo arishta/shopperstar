@@ -26,11 +26,11 @@ class Products(models.Model):
 	subcategory=models.ForeignKey(Subcategory,on_delete=models.CASCADE)
 	category=models.ForeignKey(Category,on_delete=models.CASCADE)
 	name=models.CharField(max_length=50)
-	price=models.DecimalField(max_digits=8,decimal_places=2,db_column='price')
-	currency=models.CharField(max_length=3,choices=CURRENCY_LIST,default=INR,db_column='currency')
+	price=models.DecimalField(max_digits=8,decimal_places=2)
+	currency=models.CharField(max_length=3,choices=CURRENCY_LIST,default=INR)
 	view_count=models.IntegerField(default=0)
 	quantity_in_stock=models.IntegerField(default=0)
-	bogo=models.BooleanField()
+	bogo=models.BooleanField(default=True)
 	@property
 	def combined(self):
 		return self.price+self.currency

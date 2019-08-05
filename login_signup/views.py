@@ -60,6 +60,11 @@ def signup(request):
 		serializer=UserSerializer(User.objects.filter(username=username),many=True)
 		return JsonResponse({"user":serializer.data})
 
+class ProfileView(APIView):
+    def get(self,request):
+            serializer=UserInfoSerializer(UserInfo.objects.all(),many=True)
+            return JsonResponse({"status":"authorized","user":serializer.data}) 
+
 		
 				
 
