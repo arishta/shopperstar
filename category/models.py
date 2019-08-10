@@ -4,6 +4,7 @@ from django.db import models
 
 class Category(models.Model):
 	name=models.CharField(max_length=30)
+	is_active=models.BooleanField(default=True)
 	class Meta:
 		db_table='Category'
 		verbose_name_plural='categories'
@@ -13,6 +14,7 @@ class Category(models.Model):
 class Subcategory(models.Model):
 	category=models.ForeignKey(Category,on_delete=models.CASCADE)
 	name=models.CharField(max_length=30)
+	is_active=models.BooleanField(default=True)
 	class Meta:
 		db_table='Subcategory'
 		verbose_name_plural='subcategories'
@@ -31,6 +33,7 @@ class Products(models.Model):
 	view_count=models.IntegerField(default=0)
 	quantity_in_stock=models.IntegerField(default=0)
 	bogo=models.BooleanField(default=True)
+	is_active=models.BooleanField(default=True)
 	@property
 	def combined(self):
 		return self.price+self.currency

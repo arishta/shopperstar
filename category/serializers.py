@@ -4,15 +4,15 @@ from .models import Category,Subcategory,Products
 class CategorySerializer(serializers.ModelSerializer):
 	class Meta:
 		model=Category
-		fields='__all__'
+		exclude=('is_active',)
 
 class SubcategorySerializer(serializers.ModelSerializer):
 	class Meta:
 		model=Subcategory
-		fields='__all__'
+		exclude=('is_active',)
 
 class ProductsSerializer(serializers.ModelSerializer):
 	class Meta:
 		model=Products
-		fields='__all__'
+		exclude=('is_active',)
 		

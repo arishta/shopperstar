@@ -11,9 +11,9 @@ from django.views.decorators.csrf import csrf_exempt
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import AllowAny
 from rest_framework.status import (
-    HTTP_400_BAD_REQUEST,
-    HTTP_404_NOT_FOUND,
-    HTTP_200_OK
+	HTTP_400_BAD_REQUEST,
+	HTTP_404_NOT_FOUND,
+	HTTP_200_OK
 )
 from rest_framework.response import Response
 from django.contrib.auth import authenticate
@@ -25,21 +25,15 @@ from django.contrib.auth import authenticate
 @api_view(["POST"])
 @permission_classes((AllowAny,))
 def login(request):
-    username = request.data.get("username")
-    password = request.data.get("password")
-    if username is None or password is None:
-        return Response({'error': 'Please provide both username and password'},
-                        status=HTTP_400_BAD_REQUEST)
-    print(username)
-    print(password)
-    user = authenticate(username=username, password=password)
-    print(user)
-    if not user:
-        return Response({'error': 'Invalid Credentials'},
-                        status=HTTP_404_NOT_FOUND)
-    token, _ = Token.objects.get_or_create(user=user)
-    return Response({'token': token.key},
-                    status=HTTP_200_OK)
+	username = request.data.get("username")
+	password = request.data.get("password")
+	if username is None or password is None:
+		return JsonResponse({'error': 'Please provide both username and password'})
+	user = authenticate(username=username, password=password)
+	if not user:
+		return JsonResponse({'error': 'Invalid Credentials'})
+	token, _ = Token.objects.get_or_create(user=user)
+	return JsonResponse({'token': token.key})
 
 
 @csrf_exempt
@@ -51,19 +45,21 @@ def signup(request):
 	username=request.GET.get('username')
 	password=request.GET.get('password')
 	queryset=User.objects.filter(username=username)
-	print(queryset)
 	if queryset:
-		return JsonResponse({"response":"username already exists"})
+		return JsonResponse({"message":"username already exists"})
 	else:	
 		user=User(first_name=first_name,last_name=last_name,username=username,password=password)
+		user.set_password(user.password)
 		user.save()
-		serializer=UserSerializer(User.objects.filter(username=username),many=True)
-		return JsonResponse({"user":serializer.data})
+		return JsonResponse({"message":"signup successful"})
 
 class ProfileView(APIView):
-    def get(self,request):
-            serializer=UserInfoSerializer(UserInfo.objects.all(),many=True)
-            return JsonResponse({"status":"authorized","user":serializer.data}) 
+	def get(self,request):
+		_,token=request.META.get('HTTP_AUTHORIZATION').split(' ')
+		token=Token.objects.get(key=token) 
+		user_id=token.user_id
+		serializer=UserSerializer(User.objects.filter(id=user_id),many=True)
+		return JsonResponse({"status":"authorized","user":serializer.data}) 
 
 		
 				

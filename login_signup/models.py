@@ -11,8 +11,7 @@ class UserInfo(models.Model):
 	country=models.CharField(max_length=10,null=True)	
 	class Meta:
 		db_table='user'
-	def __str__(self):
-		return (self.first_name+" "+self.last_name)
+	
 		
 @receiver(post_save, sender=settings.AUTH_USER_MODEL)
 def create_auth_token(sender, instance=None, created=False, **kwargs):
