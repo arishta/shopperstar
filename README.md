@@ -1,4 +1,4 @@
-#Project name
+#Project name#
 SHOPPERSTAR
 
 Description: It is a backend e-commerce webiste project built on Django framework.
