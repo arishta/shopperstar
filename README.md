@@ -18,24 +18,24 @@
 
 The project consists of 4 Django apps-"login_signup","category","cart","payment".
 
- **login_signup app**- It consists of 3 sections-"login","signup","profile".
+ **login_signup app**- It consists of 3 urls-"login","signup","profile".
  * *signup*-user supplies information about himself and sets a username and password.
  * *login*-user can login by supplying the username and password. On successful authentication,a token is generated                                which has to be provided as Authorization header key before being able to access any API. 
  * *profile*- profile information about the user is generated in JSON format. 
                     
- **category app**-It consists of 4 sections-"category", "subcategory","product" and "search"
+ **category app**-It consists of 4 urls-"category", "subcategory","product" and "search"
  * *category,subcategory,products*- it caters to three request methods-POST, DELETE, GET.
    * POST- category/subcategory/products can be added here.
    * DELETE- a particular category/subcategory/products can be deleted by providing their unique ids.
    * GET- it gives a list of all categories/subcategories/products that exist in the database.
  * *search*- it implements the "search products" feature.
                   
-**cart**- It consists of 3 sections-"add","remove" and "display"
+**cart**- It consists of 3 urls-"add","remove" and "display"
 * *add*- Through this, user can add products to his cart. It outputs the cart details of the user,including details                         like cart total, product_id and quantity for each particular product.
 * *delete*- User can delete products from his cart. It outputs the updated cart details.
 * *display*- It displays the current cart status of the cart.
                     
-**payment**- It consists of "payment" page. 
+**payment**- It consists of only 1 url-"payment" 
  *payment* - It displays information about payment status for the user against his cart total.
                     
 **api_token_auth**- It is a built in end point that provides the unique token id to every user if Django successfully authenticates the user through his "username" and "password".
