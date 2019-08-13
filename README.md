@@ -1,15 +1,20 @@
 
-###SHOPPERSTAR###
+### SHOPPERSTAR
 
-#Description#: It is a backend e-commerce webiste project built on Django framework.
+## Description
+It is a backend e-commerce webiste project built on Django framework.
 
-#Key features#-1) **token authentication**
+## Key features
+
+1) **token authentication**
 2) **user cart** - every user has a cart in which he can add/remove items. 
 3) **bogo feature**- this "buy one get one free" offer is applicable on certain products. 
 4) **search products feature**- it allows users to get relevant search results for products. 
 
 
-Detailed desciption about apps: The project consists of 4 Django apps-"login_signup","category","cart","payment".
+##Detailed desciption about apps
+
+The project consists of 4 Django apps-"login_signup","category","cart","payment".
 
  **login_signup app**- It consists of 3 sections-"login","signup","profile".
                     (1) signup-user supplies information about himself and sets a username and password.
@@ -36,17 +41,18 @@ Detailed desciption about apps: The project consists of 4 Django apps-"login_sig
                     
 
 
-#Technologies used#:
+## Technologies used:
 
-                   1) Django 2.2.3 , Django Rest Framework 3.9.4
+1) Django 2.2.3 , Django Rest Framework 3.9.4
                    
-                   2)Python (Django framework uses Python) 3.7.3
+2) Python (Django framework uses Python) 3.7.3
                    
-                   3)MySql (database used in the project) 8.0.16
+3) MySql (database used in the project) 8.0.16
                    
-                   4)Postman (for API testing) 7.3.6
+4) Postman (for API testing) 7.3.6
+
                    
-#How to set up the project#:
+## How to set up the project:
 
 1) Install Python from this link from here :https://www.python.org/downloads/
 2) Install mysql from here : https://dev.mysql.com/downloads/mysql/
