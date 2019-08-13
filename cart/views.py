@@ -8,6 +8,7 @@ from rest_framework.authtoken.models import Token
 import json
 from django.contrib.auth.models import User
 from django.db.models import F
+from .serializers import OrderDetailsSerializer
 
 class CartAddView(APIView):
 	def post(self,request):
@@ -20,14 +21,13 @@ class CartAddView(APIView):
 		if queryset:
 			order_id=queryset[0]['id']
 		else:
-			Order.objects.create(id=User.objects.get(id=user_id))
+			order=Order(id=user_id,user_id=User.objects.get(id=user_id))
+			order.save()
 			order_id=Order.objects.get(user_id=user_id)
 		total_amount=0
 		for i in data:
 			product_id=i['id']
 			Quantity=i['quantity']
-			if Quantity<=0:
-				return JsonResponse({"message":"input positive quantity"})
 			q=Products.objects.filter(id=product_id,is_active=1).values()
 			if not q:
 				return JsonResponse({"message":"product_id "+str(product_id)+"not found"})
@@ -44,13 +44,9 @@ class CartAddView(APIView):
 				OrderDetails.objects.create(order_id=Order.objects.get(id=order_id),product_id=Products.objects.get(id=product_id),quantity=Quantity)	
 			Products.objects.filter(id=product_id).update(quantity_in_stock=F('quantity_in_stock')-Quantity)
 		Order.objects.filter(id=order_id,is_active=1).update(total=F('total')+total_amount)
-		qset=Order.objects.filter(id=order_id,is_active=1).values()
-		total=qset[0]['total']
-		currency=qset[0]['currency']
-		return JsonResponse({"cart total":str(price)+currency})
-
-
-				
+		qset=OrderDetails.objects.filter(order_id=order_id)
+		serializer=OrderDetailsSerializer(qset,many=True)
+		return JsonResponse({"cart total":serializer.data})
 
 class CartRemoveView(APIView):
 	def post(self,request):
@@ -59,9 +55,9 @@ class CartRemoveView(APIView):
 		_,token=request.META.get('HTTP_AUTHORIZATION').split(' ')
 		token=Token.objects.get(key=token) 
 		user_id=token.user_id
-		queryset=Order.objects.filter(user_id=user_id,is_active=1).values('order_id')
+		queryset=Order.objects.filter(user_id=user_id,is_active=1).values('id')
 		if queryset:
-			order_id=queryset[0]['order_id']
+			order_id=queryset[0]['id']
 		else:
 			return JsonResponse({"message":"user cart is empty"})
 		for i in data:
@@ -69,75 +65,47 @@ class CartRemoveView(APIView):
 			product_id=i['id']
 			quantity=i['quantity']
 			if not Products.objects.filter(id=product_id,is_active=1):
-				return JsonResponse({"message":"product_id "+str(product_id)+"not found"})
-			q=OrderDetails.objects.filter(order_id=order_id,product_id=product_id,is_active=1).values('quantity')[0]['quantity']
+				return JsonResponse({"message":"product_id "+str(product_id)+" not found"})
+			q=OrderDetails.objects.filter(order_id=order_id,product_id=product_id,is_active=1).values('quantity')
 			if q:
+				q=q[0]['quantity']
 				if quantity>q:
-					return JsonResponse({"message":"quantity of "+str(product_id)+"greater than added to cart"})
+					return JsonResponse({"message":"quantity of "+str(product_id)+"greater than in cart"})
+
 				if quantity==q:
 					OrderDetails.objects.update(order_id=order_id,product_id=product_id,is_active=0)
 				else:
 					OrderDetails.objects.update(order_id=order_id,product_id=product_id,quantity=F('quantity')-quantity)
 
-				price=Products.objects.update(product_id=product_id,quantity_in_stock=F('quantity_in_stock')+quantity).values('price')[0]['price']
+				product=Products.objects.get(id=product_id)
+				product.quantity_in_stock=product.quantity_in_stock+quantity
+				price=product.price
+				product.save()
+
 				total=price*quantity
-				Order.objects.update(id=order_id,total=F('price')-total)
+				Order.objects.update(id=order_id,total=F('total')-total)
 			else:
 				return JsonResponse({"message":"product not found in cart"})
-		queryset=Order.objects.filter(order_id=order_id,is_active=1).values()
-		total=queryset[0]['total']
-		currency=queryset[0]['total']
+		qset=OrderDetails.objects.filter(order_id=order_id,is_active=1)
+		serializer=OrderDetailsSerializer(qset,many=True)
 
-		return JsonResponse({"updated cart total":str(total)+currency})
+		return JsonResponse({"updated cart total":serializer.data})
 
 class CartDisplay(APIView):
 	def get(self,request):
 		_,token=request.META.get('HTTP_AUTHORIZATION').split(' ')
 		token=Token.objects.get(key=token) 
 		user_id=token.user_id
-		queryset=Order.objects.filter(user_id=user_id,is_active=1).values('order_id','total')
+		queryset=Order.objects.filter(user_id=user_id,is_active=1).values('id','total')
 		if queryset:
-			order_id=queryset[0]['order_id']
-			cart_total=queryset[1]['total']
+			order_id=queryset[0]['id']
+			cart_total=queryset[0]['total']
 		else:
 			return JsonResponse({"message":"user cart is empty"})
-		q=OrderDetails.objects.filter(order_id=order_id).values('product_id','quantity')[0]
-		return JsonResponse({"cart details":q})
+		q=OrderDetails.objects.filter(order_id=order_id)
+		serializer=OrderDetailsSerializer(q,many=True)
+		return JsonResponse({"cart details":serializer.data})
 		
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-		
-
-
-
-
-
-
-
-		return JsonResponse({"mssg":"okay"})
-
-class CartRemoveView(APIView):
-	def post(self,request):
-		pass
-
 
 
 

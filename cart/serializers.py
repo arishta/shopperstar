@@ -4,9 +4,9 @@ from .models import Order,OrderDetails
 class OrderSerializer(serializers.ModelSerializer):
 	class Meta:
 		model=Order
-		fields='__all__'
+		exclude=('is_active',)
 
 class OrderDetailsSerializer(serializers.ModelSerializer):
 	class Meta:
 		model=OrderDetails
-		fields='__all__'
+		exclude=('is_active',)
