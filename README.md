@@ -1,8 +1,10 @@
 
-### SHOPPERSTAR
+#### SHOPPERSTAR
+
 
 ## Description
-It is a backend e-commerce webiste project built on Django framework.
+*It is a backend e-commerce webiste project built on Django framework.*
+
 
 ## Key features
 
@@ -12,21 +14,21 @@ It is a backend e-commerce webiste project built on Django framework.
 4) **search products feature**- it allows users to get relevant search results for products. 
 
 
-##Detailed desciption about apps
+## Detailed desciption about apps
 
 The project consists of 4 Django apps-"login_signup","category","cart","payment".
 
  **login_signup app**- It consists of 3 sections-"login","signup","profile".
-                    (1) signup-user supplies information about himself and sets a username and password.
-                    (2) login-user can login by supplying the username and password. On successful authentication,a token is generated                                 which has to be provided as Authorization header key before being able to access any API. 
-                    (3) profile- profile information about the user is generated in JSON format. 
+ * *signup*-user supplies information about himself and sets a username and password.
+ * *login*-user can login by supplying the username and password. On successful authentication,a token is generated                                which has to be provided as Authorization header key before being able to access any API. 
+ * *profile*- profile information about the user is generated in JSON format. 
                     
  **category app**-It consists of 4 sections-"category", "subcategory","product" and "search"
-                    (1) category,subcategory,products- it caters to three request methods-POST, DELETE, GET.
-                                  POST- category/subcategory/products can be added here.
-                                  DELETE- a particular category/subcategory/products can be deleted by providing their unique ids.
-                                  GET- it gives a list of all categories/subcategories/products that exist in the database.
-                    (2) search- it implements the "search products" feature.
+ * *category,subcategory,products*- it caters to three request methods-POST, DELETE, GET.
+   * POST- category/subcategory/products can be added here.
+   * DELETE- a particular category/subcategory/products can be deleted by providing their unique ids.
+   * GET- it gives a list of all categories/subcategories/products that exist in the database.
+ * *search*- it implements the "search products" feature.
                   
 **cart**- It consists of 3 sections-"add","remove" and "display"
                     (1) add- Through this, user can add products to his cart. It outputs the cart details of the user,including details                         like cart total, product_id and quantity for each particular product.
@@ -38,10 +40,8 @@ The project consists of 4 Django apps-"login_signup","category","cart","payment"
                     
 **api_token_auth**- It is a built in end point that provides the unique token id to every user if Django successfully authenticates the user through his "username" and "password".
 
-                    
 
-
-## Technologies used:
+## Technologies used
 
 1) Django 2.2.3 , Django Rest Framework 3.9.4
                    
@@ -51,8 +51,8 @@ The project consists of 4 Django apps-"login_signup","category","cart","payment"
                    
 4) Postman (for API testing) 7.3.6
 
-                   
-## How to set up the project:
+
+## How to set up the project
 
 1) Install Python from this link from here :https://www.python.org/downloads/
 2) Install mysql from here : https://dev.mysql.com/downloads/mysql/
