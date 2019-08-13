@@ -1,36 +1,37 @@
-Project name : SHOPPERSTAR
+#Project name
+SHOPPERSTAR
 
 Description: It is a backend e-commerce webiste project built on Django framework.
 
-Key features-1) token authentication
-2) user cart - every user has a cart in which he can add/remove items. 
-3) bogo feature- this "buy one get one free" offer is applicable on certain products. 
-4) search products feature- it allows users to get relevant search results for products. 
+Key features-1) **token authentication**
+2) **user cart** - every user has a cart in which he can add/remove items. 
+3) **bogo feature**- this "buy one get one free" offer is applicable on certain products. 
+4) **search products feature**- it allows users to get relevant search results for products. 
 
 
 Detailed desciption about apps: The project consists of 4 Django apps-"login_signup","category","cart","payment".
 
-a) login_signup app- It consists of 3 sections-"login","signup","profile".
+ **login_signup app**- It consists of 3 sections-"login","signup","profile".
                     (1) signup-user supplies information about himself and sets a username and password.
                     (2) login-user can login by supplying the username and password. On successful authentication,a token is generated                                 which has to be provided as Authorization header key before being able to access any API. 
                     (3) profile- profile information about the user is generated in JSON format. 
                     
-b) category app-It consists of 4 sections-"category", "subcategory","product" and "search"
+ **category app**-It consists of 4 sections-"category", "subcategory","product" and "search"
                     (1) category,subcategory,products- it caters to three request methods-POST, DELETE, GET.
                                   POST- category/subcategory/products can be added here.
                                   DELETE- a particular category/subcategory/products can be deleted by providing their unique ids.
                                   GET- it gives a list of all categories/subcategories/products that exist in the database.
                     (2) search- it implements the "search products" feature.
                   
-c) cart- It consists of 3 sections-"add","remove" and "display"
+**cart**- It consists of 3 sections-"add","remove" and "display"
                     (1) add- Through this, user can add products to his cart. It outputs the cart details of the user,including details                         like cart total, product_id and quantity for each particular product.
                     (2) delete- User can delete products from his cart. It outputs the updated cart details.
                     (3) display- It displays the current cart status of the cart.
                     
-d) payment- It consists of "payment" page. 
+**payment**- It consists of "payment" page. 
                     (1) payment - It displays information about payment status for the user against his cart total.
                     
-e) api_token_auth- It is a built in end point that provides the unique token id to every user if Django successfully authenticates the user through his "username" and "password".
+**api_token_auth**- It is a built in end point that provides the unique token id to every user if Django successfully authenticates the user through his "username" and "password".
 
                     
 
