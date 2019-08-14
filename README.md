@@ -68,6 +68,7 @@ If you have set a password to the connection, then update it in "DATABASE" dict 
 
 ## POSTMAN link
 https://app.getpostman.com/join-team?invite_code=a72acd9353814561b68b3aa6f7f00ce8
+![screenshot]
 
 
 
