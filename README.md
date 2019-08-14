@@ -57,7 +57,7 @@ The project consists of 4 Django apps-"login_signup","category","cart","payment"
 1. Install Python from this link from here :https://www.python.org/downloads/
 1. Install mysql from here : https://dev.mysql.com/downloads/mysql/
 1. On terminal, type ```pip install virtualenv``` to install virtual environment.
-1. Run the command "virtual my_name". After running this command, a directory named "my_name" will be created that will contain all the necessary executables to use the packages a Python project would need.
+1. Run the command ```virtualenv my_name```. After running this command, a directory named "my_name" will be created that will contain all the necessary executables to use the packages a Python project would need.
 1. Activate this virtual environment using the command ```./Scripts/activate```. The name of your virtual environment will now appear on the left side of terminal. 
 1. Install django using ```pip install django==3.9.4```
 1. Install django rest framework using ```pip install djangorestframework==3.7.3```
