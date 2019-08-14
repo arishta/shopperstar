@@ -66,7 +66,7 @@ The project consists of 4 Django apps-"login_signup","category","cart","payment"
 If you have set a password to the connection, then update it in "DATABASE" dict in settings.py under the key "PASSWORD".
 
 
-##POSTMAN link
+## POSTMAN link
 https://app.getpostman.com/join-team?invite_code=a72acd9353814561b68b3aa6f7f00ce8
 
 
