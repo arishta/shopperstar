@@ -17,7 +17,7 @@ from rest_framework.status import (
 )
 from rest_framework.response import Response
 from django.contrib.auth import authenticate
-
+from utility import *
 
 
 
@@ -55,9 +55,7 @@ def signup(request):
 
 class ProfileView(APIView):
 	def get(self,request):
-		_,token=request.META.get('HTTP_AUTHORIZATION').split(' ')
-		token=Token.objects.get(key=token) 
-		user_id=token.user_id
+		user_id=get_userid_from_token(request)
 		serializer=UserSerializer(User.objects.filter(id=user_id),many=True)
 		return JsonResponse({"status":"authorized","user":serializer.data}) 
 

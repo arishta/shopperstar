@@ -9,14 +9,14 @@ import json
 from django.contrib.auth.models import User
 from django.db.models import F
 from .serializers import OrderDetailsSerializer
+from utility import *
+
 
 class CartAddView(APIView):
 	def post(self,request):
 		data=json.loads(request.body)
-		data=data['items']
-		_,token=request.META.get('HTTP_AUTHORIZATION').split(' ')
-		token=Token.objects.get(key=token) 
-		user_id=token.user_id
+		data=data['items']	
+		user_id=get_userid_from_token(request)
 		queryset=Order.objects.filter(user_id=user_id,is_active=1).values()
 		if queryset:
 			order_id=queryset[0]['id']
@@ -52,9 +52,7 @@ class CartRemoveView(APIView):
 	def post(self,request):
 		data=json.loads(request.body)
 		data=data['items']
-		_,token=request.META.get('HTTP_AUTHORIZATION').split(' ')
-		token=Token.objects.get(key=token) 
-		user_id=token.user_id
+		user_id=get_userid_from_token(request)		
 		queryset=Order.objects.filter(user_id=user_id,is_active=1).values('id')
 		if queryset:
 			order_id=queryset[0]['id']
@@ -93,9 +91,8 @@ class CartRemoveView(APIView):
 
 class CartDisplay(APIView):
 	def get(self,request):
-		_,token=request.META.get('HTTP_AUTHORIZATION').split(' ')
-		token=Token.objects.get(key=token) 
-		user_id=token.user_id
+		user_id=get_userid_from_token(request
+			)
 		queryset=Order.objects.filter(user_id=user_id,is_active=1).values('id','total')
 		if queryset:
 			order_id=queryset[0]['id']

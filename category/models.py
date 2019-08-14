@@ -32,7 +32,6 @@ class Products(models.Model):
 	currency=models.CharField(max_length=3,choices=CURRENCY_LIST,default=INR)
 	view_count=models.IntegerField(default=0)
 	quantity_in_stock=models.IntegerField(default=0)
-	bogo=models.BooleanField(default=True)
 	is_active=models.BooleanField(default=True)
 	@property
 	def combined(self):
