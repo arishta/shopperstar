@@ -62,8 +62,7 @@ The project consists of 4 Django apps-"login_signup","category","cart","payment"
 1. Install django using ```pip install django==3.9.4```
 1. Install django rest framework using ```pip install djangorestframework==3.7.3```
 1. Install mysql client using ```pip install mysqlclient```
-1. Create a new connection in MySql. Create a new database "com" using sql command "create database com". 
-If you have set a password to the connection, then update it in "DATABASE" dict in settings.py under the key "PASSWORD".
+1. Specify your MySql connection details in ```DATABASE``` dictionary in ```settings.py```.
 
 
 ## POSTMAN link
